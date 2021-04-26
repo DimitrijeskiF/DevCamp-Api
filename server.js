@@ -5,7 +5,7 @@ const colors = require('colors');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 const bootcamps = require('./routes/bootcamps')
-
+const config = require('./config/config');
 
 dotenv.config({ path: './config/config.env' });
 connectDB();
@@ -27,7 +27,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000
 const server = app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT} and is running in ${process.env.NODE_ENV} mode!`.yellow.bold);
+    console.log(`App listening on port ${config.PORT} and is running in ${config.NODE_ENV} mode!`.yellow.bold);
 });
 
 
