@@ -3,5 +3,5 @@ module.exports = {
     NODE_ENV: 'development',
     PORT: 3000,
     GEOCODER_PROVIDER: 'mapquest',
-    GEOCODE_API_KEY: 'oLAvi2N3tnVz6BTt0P1LHyIKNQodTBHC'
+    GEOCODE_API_KEY: 'oLAvi2N3tnVz6BTt0P1LHyIKNQodTBHC',
 }
