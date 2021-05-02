@@ -7,6 +7,9 @@ const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 const bootcamps = require('./routes/bootcamps')
 const courses = require('./routes/courses');
+const auth = require('./routes/auth');
+const cookieParser = require('cookie-parser');
+
 const config = require('./config/config');
 const fileupload = require('express-fileupload');
 
@@ -15,6 +18,7 @@ connectDB();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
@@ -27,6 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
+app.use('/api/v1/auth', auth);
+
 app.use(errorHandler);
 
 
