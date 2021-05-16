@@ -16,10 +16,15 @@ const Bootcamp = require('../models/Bootcamp');
 //Include other resource routers
 
 const courseRouter = require('./courses')
+const reviewsRouter = require('./reviews');
+
 const router = express.Router();
 
-//Re-route into other resource routers
+//Re-route into other resource routers..
+//everything that comes to this route go to the router
 router.use('/:bootcampId/courses', courseRouter)
+router.use('/:bootcampId/reviews', reviewsRouter)
+
 
 router.route('/radius/:zipcode/:distance')
     .get(getBootcampsInRadius)
