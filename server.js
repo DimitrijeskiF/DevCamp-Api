@@ -5,17 +5,18 @@ const morgan = require('morgan');
 const colors = require('colors');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
-
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
 const bootcamps = require('./routes/bootcamps')
 const courses = require('./routes/courses');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
 const reviews = require('./routes/reviews');
-
-
-
 const cookieParser = require('cookie-parser');
-
 const config = require('./config/config');
 const fileupload = require('express-fileupload');
 
@@ -32,6 +33,20 @@ if (process.env.NODE_ENV === 'development') {
 
 
 app.use(fileupload());
+app.use(cors());
+
+//prevent Security
+app.use(mongoSanitize());
+app.use(helmet())
+app.use(xss());
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000,//10 mins
+    max:100
+})
+app.use(limiter);
+app.use(hpp())
+
+
 
 app.use(express.static(path.join(__dirname, 'public')))
 
